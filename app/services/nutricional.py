@@ -67,6 +67,7 @@ def calcular_tabla_nutricional(ingredientes, gramos):
     # ===============================
 
     filas_encontradas = []
+    ingredientes_usados = []
 
     for ing in df_u["ingrediente_norm"]:
 
@@ -77,8 +78,10 @@ def calcular_tabla_nutricional(ingredientes, gramos):
             mejor = match[0]
 
             fila = df_b_d[df_b_d["nombre_normalizado"] == mejor]
-
             filas_encontradas.append(fila)
+            
+            nombre_real = fila["Nombre del Alimento"].values[0]
+            ingredientes_usados.append(nombre_real)
 
     df_encontrados = pd.concat(filas_encontradas)
 
@@ -147,4 +150,4 @@ def calcular_tabla_nutricional(ingredientes, gramos):
         "valor": resultados
     })
 
-    return dict(zip(tabla["parametro"], tabla["valor"]))
+    return dict(zip(tabla["parametro"], tabla["valor"])), ingredientes_usados

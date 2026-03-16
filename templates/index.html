@@ -175,7 +175,13 @@ Generar tabla
 </form>
 
 </div>
+    <h3>Ingredientes encontrados en la base de datos</h3>
 
+    <ul>
+    {% for ing in ingredientes_usados %}
+    <li>{{ ing }}</li>
+    {% endfor %}
+    </ul>
 
 {% if tabla %}
 

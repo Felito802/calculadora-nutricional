@@ -39,7 +39,7 @@ def calcular(
     porcion: float = Form(None)
 ):
 
-    tabla = calcular_tabla_nutricional(ingrediente, cantidad)
+    tabla, ingredientes_usados = calcular_tabla_nutricional(ingrediente, cantidad)
 
     total_gramos = sum(cantidad)
 
@@ -81,6 +81,7 @@ def calcular(
             "tabla_porcion": tabla_porcion,
             "porcion": porcion,
             "porciones": porciones,
-            "sello": sello
+            "sello": sello,
+            "ingredientes_usados": ingredientes_usados
         }
     )
