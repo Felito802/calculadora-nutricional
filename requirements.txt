@@ -19,3 +19,4 @@ scikit-learn
 openpyxl
 rapidfuzz
 imbalanced-learn
+python-multipart
