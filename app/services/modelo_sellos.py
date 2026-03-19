@@ -95,11 +95,10 @@ def predecir_sello(nutrientes):
 
     prob = modelo.predict_proba(datos)[0][1]
 
-    umbral = 0.42
+    umbral = 0.5
 
     if prob >= umbral:
         return "EXCESO EN GRASA SATURADA"
     else:
         return "SIN SELLO"
     
-print(X.columns)

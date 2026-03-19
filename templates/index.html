@@ -151,10 +151,21 @@ background:#28a745;
 <div id="ingredientes-container">
 
 <div>
-<input type="text" name="ingrediente" placeholder="Ingrediente">
-<input type="number" name="cantidad" placeholder="Gramos">
+    <input type="text" name="ingrediente" placeholder="Ingrediente">
+    <input type="number" name="cantidad" placeholder="Gramos">
+    <div>
+        
+         <label>
+              <input type="checkbox" name="azucar_agregado" value="0">
+                Azúcar añadido
+            </label>
+        
+        </div>
 </div>
 
+<div>
+
+</div>
 </div>
 
 <button type="button" onclick="agregarIngrediente()">
@@ -216,7 +227,7 @@ Información nutricional
 <div class="linea-media"></div>
 
 <div class="energia">
-<span>Energía</span>
+<span>Calorias (kcal)</span>
 <span>{{ "%.2f"|format(tabla["Energia (Kcal)"]) }}</span>
 <span>{{ "%.2f"|format(tabla_porcion["Energia (Kcal)"]) }}</span>
 </div>
@@ -259,6 +270,12 @@ Información nutricional
 <span>Azúcares totales</span>
 <span>{{ "%.2f"|format(tabla["Azúcares totales (g)"]) }}</span>
 <span>{{ "%.2f"|format(tabla_porcion["Azúcares totales (g)"]) }}</span>
+</div>
+
+<div class="fila sub">
+<span>Azúcares añadidos</span>
+<span>{{ "%.2f"|format(azucares_añadidos) }}</span>
+<span>{{ "%.2f"|format((azucares_añadidos * porcion)/100 if porcion else azucares_añadidos) }}</span>
 </div>
 
 <div class="linea-fina"></div>
@@ -333,17 +350,42 @@ Descargar PDF
 
 function agregarIngrediente(){
 
-const container = document.getElementById("ingredientes-container");
+   const container = document.getElementById("ingredientes-container");
 
-const div = document.createElement("div");
+    const div = document.createElement("div");
 
-div.innerHTML = `
-<input type="text" name="ingrediente" placeholder="Ingrediente">
-<input type="number" name="cantidad" placeholder="Gramos">
-`;
+    div.innerHTML = `
+        <input type="text" name="ingrediente" placeholder="Ingrediente">
+        <input type="number" name="cantidad" placeholder="Gramos">
+        <div>
+            <label>
+                <input type="checkbox" name="azucar_agregado" value="">
+                Azúcar añadido
+            </label>
+        </div>
+    `;
 
-container.appendChild(div);
+    // Actualizar value del checkbox con el nombre cuando se escriba
+    const checkbox = div.querySelector('input[type="checkbox"]');
+    const ingredienteInput = div.querySelector('input[name="ingrediente"]');
 
+    ingredienteInput.addEventListener('input', () => {
+        checkbox.value = ingredienteInput.value;  // value = nombre
+    });
+
+    container.appendChild(div);
+}
+
+
+function toggleAzucar(checkbox){
+
+    const hidden = checkbox.closest("div").querySelector(".hidden-azucar");
+
+    if(checkbox.checked){
+        hidden.value = "1";
+    } else {
+        hidden.value = "0";
+    }
 }
 
 </script>
